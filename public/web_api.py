@@ -31,6 +31,8 @@ class AssemblyRequest:
             response = self.request.get(url, **kwargs)
         elif method == 'delete':
             response = self.request.delete(url, **kwargs)
+        elif method == 'put':
+            response = self.request.put(url, **kwargs)
         else:
             # 待补充测试方法
             ...
