@@ -16,6 +16,7 @@ def params():
     case_reader = ReadCase()
     return case_reader.get_params(), case_reader.get_case_id()
 
+
 class TestAPI:
 
     def setup_class(self):
@@ -31,9 +32,9 @@ class TestAPI:
     def test_api(self, case_row, req_url, req_method, req_header, req_params_type, req_params_locate, req_params, except_result):
         response = self.request.api_request(req_url, req_method, req_header, req_params_type, req_params_locate, req_params)
         result = response.json()
-        # try:
-        self.log.info(f'响应结果断言: {result} == {except_result}')
+        self.log.info(f'响应消息: {result}')
         try:
+            self.log.info(f'响应结果断言: <响应结果>{result} == <预期结果>{except_result}')
             assert result == except_result
             # 写入测试结果
             self.reader.write_test_result(case_row, "PASS")

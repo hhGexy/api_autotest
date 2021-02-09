@@ -35,18 +35,18 @@ class ReadCase:
 
     # 读取用例行号
     def get_case_rows(self):
-        case_row = list()
+        # 获取用例
         cases = self.get_case_id_and_row()
-        for case in cases:
-            case_row.append(case[0])
+        # 获取用例对应行号
+        case_row = [case[0] for case in cases]
         return case_row
 
     # 读取用例编号
     def get_case_id(self):
-        case_id = list()
+        # 获取用例
         cases = self.get_case_id_and_row()
-        for case in cases:
-            case_id.append(case[1])
+        # 获取用例编号
+        case_id = [case[1] for case in cases]
         return case_id
 
     # 根据用例标题, 读取每一行测试用例数据
@@ -88,12 +88,11 @@ class ReadCase:
 
     # 获取符合pytest参数化的数据
     def get_params(self):
-        params = list()
+        # 获取用例测试数据字典
+        case_datas = self.get_case_data()
 
-        cases = self.get_case_data()
-
-        for case in cases.values():
-            params.append(tuple(case[:8]))
+        # 以用例为键, 提取用例参数值
+        params = [tuple(case[:8]) for case in case_datas.values()]
 
         return params
 
@@ -107,6 +106,6 @@ class ReadCase:
 
 if __name__ == '__main__':
     rd = ReadCase()
-    print(rd.get_case_id())
+    print(rd.get_params())
 
 
