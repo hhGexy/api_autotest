@@ -46,23 +46,17 @@ class AssemblyRequest:
         self.log.info(f'请求参数类型: {req_params_type}')
         self.log.info(f'请求参数: {req_params}')
 
+        response = None
         if req_params_type == 'x-www-form-urlencoded':
             if req_params_locate == 'body':
                 response = self.request_method(method=req_method,
-                                  url=req_url,
-                                  data=req_params,
+                                               url=req_url,
+                                               data=req_params,
                                   )
             elif req_params_locate == 'url':
                 response = self.request_method(method=req_method,
-                                  url=req_url,
-                                  params=req_params,
-                                  headers=req_header)
+                                               url=req_url,
+                                               params=req_params,
+                                               headers=req_header)
 
         return response
-
-
-if __name__ == '__main__':
-    ar = AssemblyRequest()
-    data = ar.get_datas()[0]
-    print(data)
-    ar.api_request(data[0], data[1], data[2], data[3], data[4], data[5])
