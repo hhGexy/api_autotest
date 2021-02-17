@@ -104,8 +104,3 @@ class ReadCase:
         self.xlsx_reader.write_to_unit(row, test_result_column, status)
 
 
-if __name__ == '__main__':
-    rd = ReadCase()
-    print(rd.get_params())
-
-

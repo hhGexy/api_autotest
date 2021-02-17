@@ -47,16 +47,24 @@ class AssemblyRequest:
         self.log.info(f'请求参数: {req_params}')
 
         response = None
+        # 请求参数格式为x-www-form-urlencoded
         if req_params_type == 'x-www-form-urlencoded':
+            # 请求参数放置在消息体中
             if req_params_locate == 'body':
                 response = self.request_method(method=req_method,
                                                url=req_url,
                                                data=req_params,
                                   )
+            # 请求参数位置在url中
             elif req_params_locate == 'url':
                 response = self.request_method(method=req_method,
                                                url=req_url,
                                                params=req_params,
                                                headers=req_header)
+        # 请求头格式为json
+        elif req_params_type == 'application/json':
+            response = self.request_method(method=req_method,
+                                           url=req_url,
+                                           json=req_params)
 
         return response

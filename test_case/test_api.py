@@ -20,7 +20,8 @@ def params():
 class TestAPI:
 
     def setup_class(self):
-        self.reader = ReadCase()
+        # 写入文件对象
+        self.writer = ReadCase()
         self.request = AssemblyRequest()
         self.log = SysLogger.get_logger()
 
@@ -35,17 +36,19 @@ class TestAPI:
         self.log.info(f'响应消息: {result}')
         try:
             self.log.info(f'响应结果断言: <响应结果>{result} == <预期结果>{except_result}')
-            assert result == except_result
-            # 写入测试结果
-            self.reader.write_test_result(case_row, "PASS")
-            self.log.info('写入测试结果: PASS')
-            self.log.info('测试通过')
-        except PermissionError:
-            self.log.error('测试用例文件处于打开状态, 请关闭')
+            if except_result == "none":
+                # 未指定预期结果的, 忽略
+                self.writer.write_test_result(case_row, "IGNORE")
+                self.log.info('写入测试结果: IGNORE')
+            else:
+                assert result == except_result
+                # 写入测试结果
+                self.writer.write_test_result(case_row, "PASS")
+                self.log.info('写入测试结果: PASS')
+
         except:
-            self.log.info('测试不通过')
             # 写入测试结果
-            self.reader.write_test_result(case_row, "FAIL")
+            self.writer.write_test_result(case_row, "FAIL")
             self.log.error('写入测试结果: FAIL')
             raise
 

@@ -72,6 +72,9 @@ class ExcelLibrary:
         elif value.lower() == 'fail':
             # 红色FF3030
             unit.fill = PatternFill("solid", "FF3030")
+        else:
+            # 灰色
+            unit.fill =  PatternFill("solid", "DCDCDC")
         # 写入value
         unit.value = value
         # 保存
