@@ -32,7 +32,11 @@ class TestAPI:
     )
     def test_api(self, case_row, req_url, req_method, req_header, req_params_type, req_params_locate, req_params, except_result):
         response = self.request.api_request(req_url, req_method, req_header, req_params_type, req_params_locate, req_params)
+        # 响应状态码
+        code = response.status_code
+        # 响应消息体
         result = response.json()
+        self.log.info(f'响应状态码: {code}')
         self.log.info(f'响应消息: {result}')
         try:
             self.log.info(f'响应结果断言: <响应结果>{result} == <预期结果>{except_result}')
